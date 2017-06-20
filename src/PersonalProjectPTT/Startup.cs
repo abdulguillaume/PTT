@@ -14,7 +14,8 @@ using System.IO;
 using PersonalProjectPTT.Data;
 using PersonalProjectPTT.Models;
 using PersonalProjectPTT.Services;
-
+using PersonalProjectPTT.Interfaces;
+using PersonalProjectPTT.Repository;
 
 namespace PersonalProjectPTT
 {
@@ -63,7 +64,14 @@ namespace PersonalProjectPTT
                         {
                             options.AddPolicy("AdminOnly", policy => policy.RequireClaim("IsAdmin"));
                         });
-            
+
+            // my services
+            services.AddScoped<IGenericRepository, GenericRepository>();
+            services.AddScoped<IClientService, ClientService>();
+            services.AddScoped<ICommentService, CommentService>();
+            services.AddScoped<ITaskService, TaskService>();
+            services.AddScoped<IProjectService, ProjectService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

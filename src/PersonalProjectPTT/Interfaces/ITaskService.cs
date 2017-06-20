@@ -10,6 +10,7 @@ namespace PersonalProjectPTT.Interfaces
     {
         List<ATask> AllTasks();
         void AddTask(ATask task);
+        void AddTask(int projectId, ATask task);//added to be able to add task to project
         void DeleteTask(int id);
         ATask GetTask(int id);
         void UpdateTask(ATask task);

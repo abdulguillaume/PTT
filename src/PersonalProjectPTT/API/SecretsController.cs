@@ -15,11 +15,11 @@ namespace PersonalProjectPTT.API
     {
         // GET: api/values
         [HttpGet]
-        [Authorize(Policy = "AdminOnly")]
+        //[Authorize(Policy = "AdminOnly")]
         public IEnumerable<string> Get()
         {
             var user = this.User;
-            return new string[] { "The Cake is a Lie!", "Darth Vader is Luke's Father." };
+            return new string[] { "The Cake is a Lie!", "Darth Vader is Luke's Father.", string.Format("I, {0} am Batman!",user) };
         }
 
 

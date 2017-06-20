@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PersonalProjectPTT.Interfaces;
 using PersonalProjectPTT.Models;
+using PersonalProjectPTT.Services;
 
 namespace PersonalProjectPTT.API
 {
     [Produces("application/json")]
-    [Route("api/Project")]
+    [Route("api/[controller]")]
+    [Consumes("application/json", "application/json-patch+json", "multipart/form-data")]
     public class ProjectController : Controller
     {
         IProjectService _project;
@@ -27,12 +29,12 @@ namespace PersonalProjectPTT.API
         }
 
         // GET: api/Project/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}")]
         public Project Get(int id)
         {
             return _project.GetProject(id);
         }
-        
+
         // POST: api/Project
         [HttpPost]
         public IActionResult Post([FromBody]Project project)
@@ -43,6 +45,9 @@ namespace PersonalProjectPTT.API
             }
             else if (project.Id == 0)
             {
+                project.CreateDate = DateTime.Now;
+                project.UpdateDate = project.CreateDate;
+
                 _project.AddProject(project);
                 return Ok();
             }

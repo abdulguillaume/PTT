@@ -10,7 +10,7 @@ using PersonalProjectPTT.Models;
 namespace PersonalProjectPTT.API
 {
     [Produces("application/json")]
-    [Route("api/Comment")]
+    [Route("api/[controller]")]
     public class CommentController : Controller
     {
         ICommentService _comment;
@@ -28,12 +28,12 @@ namespace PersonalProjectPTT.API
         }
 
         // GET: api/Comment/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}")]
         public Comment Get(int id)
         {
             return _comment.GetComment(id);
         }
-        
+
         // POST: api/Comment
         [HttpPost]
         public IActionResult Post([FromBody]Comment comment)

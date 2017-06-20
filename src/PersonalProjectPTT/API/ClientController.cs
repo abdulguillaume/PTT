@@ -11,7 +11,8 @@ using Microsoft.AspNetCore.Authorization;
 namespace PersonalProjectPTT.API
 {
     [Produces("application/json")]
-    [Route("api/Client")]
+    [Route("api/[controller]")]
+    //[Consumes("application/json", "application/json-patch+json", "multipart/form-data")]
     public class ClientController : Controller
     {
         private IClientService _client;
@@ -47,6 +48,7 @@ namespace PersonalProjectPTT.API
             }
             else if (client.Id == 0)
             {
+                client.CreateDate = DateTime.Now;
                 _client.AddClient(client);
                 return Ok();
             }

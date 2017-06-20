@@ -10,7 +10,7 @@ using PersonalProjectPTT.Models;
 namespace PersonalProjectPTT.API
 {
     [Produces("application/json")]
-    [Route("api/Task")]
+    [Route("api/[controller]")]
     public class TaskController : Controller
     {
         private ITaskService _task;
@@ -29,31 +29,36 @@ namespace PersonalProjectPTT.API
         }
 
         // GET: api/Task/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}")]
         public ATask Get(int id)
         {
             return _task.GetTask(id);
         }
-        
+
         // POST: api/Task
         [HttpPost]
         //[Authorize]
-        public IActionResult Post([FromBody]ATask task)
+        public IActionResult Post([FromBody]TaskRequest rqst)//[FromBody]ATask task) //changed in order to receive 2 parameters in the post request
         {
-            if (task == null)
+            if (rqst == null)
             {
                 return BadRequest();
             }
-            else if (task.Id == 0)
+            else if (rqst!=null && rqst.task.Id == 0)
             {
-                _task.AddTask(task);
+                rqst.task.CreateDate = DateTime.Now;
+                rqst.task.UpdateDate = rqst.task.CreateDate;
+
+                _task.AddTask(rqst.projectId, rqst.task);
                 return Ok();
             }
-            else
+            else if(rqst!=null)
             {
-                _task.UpdateTask(task);
+                _task.UpdateTask(rqst.task);
                 return Ok();
             }
+
+            return BadRequest(); //in case everything has failed
         }
         
         // DELETE: api/ApiWithActions/5
@@ -62,5 +67,11 @@ namespace PersonalProjectPTT.API
         {
             _task.DeleteTask(id);
         }
+    }
+
+    public class TaskRequest
+    {
+        public int projectId { get; set; }
+        public ATask task { get; set; }
     }
 }

@@ -1,0 +1,33 @@
+﻿<div class="row jumbotron col-lg-10 col-md-10 col-sm-10 col-lg-offset-1 col-md-offset-1 col-sm-offset-1">
+    <div class="text-center tableTitle">
+        <h2>{{controller.message}}</h2>
+        <h5>Check and edit clients information...</h5>
+    </div>
+
+    <div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name:</th>
+                    <th>Type:</th>
+                    <th>Create by:</th>
+                    <th>Create Time:</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="client in controller.clients">
+                    <td>{{client.name}}</td>
+                    <td>{{client.type}}</td>
+                    <td>{{client.createBy}}</td>
+                    <td>{{client.createDate|date:'medium'}}</td>
+                    <td>
+                        <button class="btn btn-warning" ui-sref="editClient({id: client.id})">Edit</button>
+                    </td>
+                    <td><button class="btn btn-danger" ng-click="controller.deleteClient(client.id)">Delete</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

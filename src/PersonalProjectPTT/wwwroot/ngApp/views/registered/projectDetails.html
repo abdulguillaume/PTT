@@ -1,0 +1,99 @@
+﻿<div class="jumbotron">
+    <!--<nav class="navbar navbar-inverse navnavnav ">
+        <div class="container-fluid navnavnav">
+            <div class="navbar-header text-center center-block navnavnav">
+                <a class="navbar-brand" href="/">Return</a>
+            </div>
+        </div>
+    </nav>-->
+    <h2 class="tableTitle text-center">Project - {{controller.project.name}}</h2>
+
+    <table>
+        <tbody class="text-left">
+            <tr>
+                <td class="text-center">Description:</td>
+                <td>{{controller.project.description}}</td>
+            </tr>
+            <tr>
+                <td class="text-center">Status:</td>
+                <td>{{controller.project.status}}</td>
+            </tr>
+            <tr>
+                <td class="text-center">Priority:</td>
+                <td>{{controller.project.priority}}</td>
+            </tr>
+            <tr>
+                <td class="text-center">Start Date:</td>
+                <td>{{controller.project.startDate|date:medium}}</td>
+            </tr>
+            <tr>
+                <td class="text-center">End Date:</td>
+                <td>{{controller.project.endDate|date:medium}}</td>
+            </tr>
+            <tr>
+                <td class="text-center">Note:</td>
+                <td>{{controller.project.Note}}</td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <!-- Start /Task Table-->
+
+                    <table class="table">
+                        <tr>
+                            <th colspan="5">
+                                Task List. 
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                Title / Short description
+                            </th>
+                            <th>
+                                Status/Priority:
+                            </th>
+                            <th>
+                                Budget:
+                            </th>
+                            <th>
+                                Start/End:
+                            </th>
+                            <th>
+                                Assigned to:
+                            </th>
+                            <th>
+                                <button ng-click="controller.showModal(controller.project)">Add Task</button>
+                            </th>
+                        </tr>
+                        <tr ng-repeat="task in controller.project.tasks">
+                            <td>
+                                {{task.name}}/{{task.description}}
+                            </td>
+                            <td>
+                                {{task.status}}/{{task.priority}}
+                            </td>
+                            <td>
+                                {{task.budget}}
+                            </td>
+                            <td>
+                               {{task.startDate|date:medium}}/ {{task.endDate|date:medium}}
+                            </td>
+                            <td>
+                                {{task.assignedEmployee}}
+                            </td>
+                            <td>
+                                ???
+                            </td>
+                        </tr>
+
+                    </table>
+
+
+                    <!-- End /Task Table-->
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <!--<div id="embeddedVideo" class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
+        <p>{{controller.remix.youtubeUrl}}" </p>
+    </div>-->
+</div>

@@ -16,6 +16,7 @@ namespace PersonalProjectPTT.Models
         public string Note { get; set; }
 
         public DateTime CreateDate { get; set; }
+        public DateTime UpdateDate { get; set; }
 
         public ICollection<ATask> Tasks { get; set; }
 

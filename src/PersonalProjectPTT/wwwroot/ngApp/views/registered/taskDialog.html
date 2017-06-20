@@ -1,0 +1,17 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title">Project - {{modal._project.name}}</h3>
+</div>
+
+<div class="modal-body">
+    <label>Task name :  <input id="name" ng-model="modal.task.title" /></label>
+    <label>description :  <input id="desc" ng-model="modal.task.description" /></label>
+    <label>Priority :  <input id="priority" ng-model="modal.task.priority" /></label>
+    <label>Budget :  <input id="budget" ng-model="modal.task.budget" /></label>
+    <label>Task name :  <input id="start" ng-model="modal.task.startDate" placeholder="Start Date -> MM/dd/yyyy" /></label>
+    <label>Task name :  <input id="end" ng-model="modal.task.endDate" placeholder="End Date -> MM/dd/yyyy"/></label>
+    
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="modal.ok()">OK</button>
+</div>

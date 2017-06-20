@@ -5,19 +5,31 @@ using System.Linq;
 using System.Threading.Tasks;
 using PersonalProjectPTT.Models;
 
+
 namespace PersonalProjectPTT.Services
 {
     public class TaskService : ITaskService
     {
         private IGenericRepository _repo;
+        private IProjectService _ps;
 
-        public TaskService(IGenericRepository repo)
+        public TaskService(IGenericRepository repo, IProjectService ps)
         {
             _repo = repo;
+            _ps = ps;
         }
 
         public void AddTask(ATask task)
         {
+            _repo.Add(task);
+        }
+
+        public void AddTask(int projectId, ATask task)
+        {
+            Project project = _ps.GetProject(projectId);
+
+            task.LinkedProject = project;
+
             _repo.Add(task);
         }
 

@@ -1,6 +1,6 @@
 namespace PersonalProjectPTT {
 
-    angular.module('PersonalProjectPTT', ['ui.router', 'ngResource', 'ui.bootstrap']).config((
+    angular.module('PersonalProjectPTT', ['ui.router', 'ngResource', 'ui.bootstrap', 'ngMaterial','ngMessages']).config((
         $stateProvider: ng.ui.IStateProvider,
         $urlRouterProvider: ng.ui.IUrlRouterProvider,
         $locationProvider: ng.ILocationProvider
@@ -17,6 +17,36 @@ namespace PersonalProjectPTT {
                 url: '/secret',
                 templateUrl: '/ngApp/views/secret.html',
                 controller: PersonalProjectPTT.Controllers.SecretController,
+                controllerAs: 'controller'
+            })
+            .state('clients', {
+                url: '/clients',
+                templateUrl: '/ngApp/views/registered/clientList.html',
+                controller: PersonalProjectPTT.Controllers.ClientListController,
+                controllerAs: 'controller'
+            })
+            .state('addClient', {
+                url: '/addClient',
+                templateUrl: '/ngApp/views/registered/addClient.html',
+                controller: PersonalProjectPTT.Controllers.AddClientController,
+                controllerAs: 'controller'
+            })
+            .state('projects', {
+                url: '/projects',
+                templateUrl: '/ngApp/views/registered/projectList.html',
+                controller: PersonalProjectPTT.Controllers.ProjectListController,
+                controllerAs: 'controller'
+            })
+            .state('addProject', {
+                url: '/addProject',
+                templateUrl: '/ngApp/views/registered/addProject.html',
+                controller: PersonalProjectPTT.Controllers.AddProjectController,
+                controllerAs: 'controller'
+            })
+            .state('projectDetails', {
+                url: '/project/:id',
+                templateUrl: '/ngApp/views/registered/projectDetails.html',
+                controller: PersonalProjectPTT.Controllers.AboutProjectController,
                 controllerAs: 'controller'
             })
             .state('login', {
