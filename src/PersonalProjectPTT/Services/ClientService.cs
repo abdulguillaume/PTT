@@ -27,6 +27,9 @@ namespace PersonalProjectPTT.Services
             List<Client> clients = (from c in _repo.Query<Client>()
                              select c
                            ).ToList();
+
+
+
             return clients;
         }
 

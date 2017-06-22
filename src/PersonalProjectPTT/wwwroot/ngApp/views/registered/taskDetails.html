@@ -1,0 +1,80 @@
+﻿<div class="jumbotron">
+
+    <h2 class="tableTitle text-center">Task - {{controller.task.title}}</h2>
+
+    <table>
+        <tbody class="text-left">
+            <tr>
+                <td class="text-center">Description:</td>
+                <td>{{controller.task.description}}</td>
+            </tr>
+            <tr>
+                <td class="text-center">Status:</td>
+                <td>{{controller.task.status}}</td>
+            </tr>
+            <tr>
+                <td class="text-center">Priority:</td>
+                <td>{{controller.task.priority}}</td>
+            </tr>
+            <tr>
+                <td class="text-center">Start Date:</td>
+                <td>{{controller.task.startDate|date:medium}}</td>
+            </tr>
+            <tr>
+                <td class="text-center">End Date:</td>
+                <td>{{controller.task.endDate|date:medium}}</td>
+            </tr>
+            <tr>
+                <td class="text-center">Note:</td>
+                <td>{{controller.task.assignedEmployee}}</td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <!-- Start /Task Table-->
+
+                    <table class="table">
+                        <tr>
+                            <th colspan="3">
+                                <!--Task List.-->
+                                <!--(<a href="#" ng-click="controller.showModal(controller.project)">Add new task</a>)-->
+                                <button type="button" class="btn btn-success btn-number" data-type="plus" data-field="plus" ng-click="controller.modalComment(controller.task)">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                </button> <em>Add new comment</em>
+
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                comment
+                            </th>
+                            <th>
+                                Author
+                            </th>
+                            <th>
+                                Create date
+                            </th>
+                        </tr>
+                        <tr ng-repeat="comment in controller.task.comment">
+                            <td>
+                                {{comment.text}}
+                            </td>
+                            <td>
+                                {{comment.author}}
+                            </td>
+                            <td>
+                                ??
+                            </td>
+                        </tr>
+
+                    </table>
+
+
+                    <!-- End /Task Table-->
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <!--<div id="embeddedVideo" class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
+        <p>{{controller.remix.youtubeUrl}}" </p>
+    </div>-->
+</div>

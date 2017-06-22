@@ -8,8 +8,8 @@ using PersonalProjectPTT.Data;
 namespace PersonalProjectPTT.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170619101955_UpdateModelsDeleteOldMigrationFolder")]
-    partial class UpdateModelsDeleteOldMigrationFolder
+    [Migration("20170620192213_ModelsReview")]
+    partial class ModelsReview
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

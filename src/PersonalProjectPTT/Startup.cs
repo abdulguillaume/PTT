@@ -16,6 +16,7 @@ using PersonalProjectPTT.Models;
 using PersonalProjectPTT.Services;
 using PersonalProjectPTT.Interfaces;
 using PersonalProjectPTT.Repository;
+using Newtonsoft.Json;
 
 namespace PersonalProjectPTT
 {
@@ -71,6 +72,13 @@ namespace PersonalProjectPTT
             services.AddScoped<ICommentService, CommentService>();
             services.AddScoped<ITaskService, TaskService>();
             services.AddScoped<IProjectService, ProjectService>();
+
+            //add on 20/06/2017
+            services.AddScoped<IEmployeeService, EmployeeService>();
+
+            services.AddMvc().AddJsonOptions(options => {
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            });
 
         }
 

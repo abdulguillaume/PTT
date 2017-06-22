@@ -6,6 +6,12 @@ namespace PersonalProjectPTT.Controllers {
         public name: string;
     }
 
+    class _Task {
+        public id: number;
+        public name: string;
+    }
+
+
     export class HomeController {
         public message = "Hello from the home page!";
     }
@@ -137,12 +143,6 @@ namespace PersonalProjectPTT.Controllers {
 
             this.projectToAdd.status = "created";
 
-            //to remove later
-            //this.projectToAdd.startDate = new Date();
-            //this.projectToAdd.endDate = this.projectToAdd.startDate;
-
-            debugger;
-
             this.$http.post(`/api/project`, this.projectToAdd).then((response) => {
                 this.$state.go(`projects`);
             });
@@ -169,12 +169,9 @@ namespace PersonalProjectPTT.Controllers {
         public project;
 
 
-        public showModal(obj: _Project)
+        public modalTask(obj: _Project)
         {
             let that = this;
-
-
-            debugger;
 
             this.$uibModal.open({
                 templateUrl: '/ngApp/views/registered/taskDialog.html',
@@ -183,7 +180,28 @@ namespace PersonalProjectPTT.Controllers {
                 resolve: {
                     _project: () => obj
                 },
-                size: 'sm'
+                size: 'lg'
+            })
+                .result
+                .then(function () {
+                    that.$state.reload();
+                });
+        }
+
+
+        public modalComment(obj: _Task) {
+            let that = this;
+
+            debugger;
+
+            this.$uibModal.open({
+                templateUrl: '/ngApp/views/registered/commentDialog.html',
+                controller: 'CommentController',
+                controllerAs: 'modal',
+                resolve: {
+                    _task: () => obj
+                },
+                size: 'md'
             })
                 .result
                 .then(function () {
@@ -201,28 +219,90 @@ namespace PersonalProjectPTT.Controllers {
         }
     }
 
+
+
+    //export class AboutTaskController {
+
+    //    public task;
+
+
+    //    public modalTask(obj: _Project) {
+    //        let that = this;
+
+    //        this.$uibModal.open({
+    //            templateUrl: '/ngApp/views/registered/taskDialog.html',
+    //            controller: 'DialogController',
+    //            controllerAs: 'modal',
+    //            resolve: {
+    //                _project: () => obj
+    //            },
+    //            size: 'lg'
+    //        })
+    //            .result
+    //            .then(function () {
+    //                that.$state.reload();
+    //            });
+    //    }
+
+    //    constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService, private $stateParams: ng.ui.IStateParamsService, private $uibModal: angular.ui.bootstrap.IModalService) {
+
+    //        let projectId = $stateParams[`id`];
+
+    //        $http.get(`/api/project/` + projectId).then((response) => {
+    //            this.project = response.data;
+    //        })
+    //    }
+    //}
+
     export class DialogController {
 
         public task;
 
         public project;
 
+        public employees;
+
+        public priorities = ["urgent", "high", "medium", "low"];
+
         public ok() {
 
-            debugger;
+            this.task.status = "created";
 
             this.$http.post(`/api/task`, { projectId: this._project.id, task: this.task }).then((response) => {
-                //this.$state.go(`clients`);
-                //this.task.projectId = this._project.id; //not needed
-                debugger;
                 this.$uibModalInstance.close();
             })
         }
 
         constructor(private _project: _Project, private $uibModalInstance: angular.ui.bootstrap.IModalServiceInstance, private $http: ng.IHttpService, private $state: ng.ui.IStateService) {
-            //this.task.projectId = _project.id;
+
+            $http.get(`/api/employee`).then((response) => {
+                this.employees = response.data;
+            });
         }
     }
+
+
+    export class CommentController {
+
+        public comment;
+
+        public ok() {
+
+            this.$http.post(`/api/comment`, { taskId: this._task.id, comment: this.comment }).then((response) => {
+                this.$uibModalInstance.close();
+            })
+        }
+
+        constructor(private _task: _Task, private $uibModalInstance: angular.ui.bootstrap.IModalServiceInstance, private $http: ng.IHttpService, private $state: ng.ui.IStateService) {
+
+            //$http.get(`/api/employee`).then((response) => {
+            //    this.employees = response.data;
+            //});
+        }
+    }
+
+
+
 
     angular.module('PersonalProjectPTT').controller('DialogController', DialogController);
 

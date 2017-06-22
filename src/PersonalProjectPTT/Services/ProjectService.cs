@@ -42,16 +42,12 @@ namespace PersonalProjectPTT.Services
 
         public List<Project> AllProjects()
         {
-            List<Project> projects = (from p in _repo.Query<Project>().Include(a => a.Tasks)
+            List<Project> projects = (from p in _repo.Query<Project>()
+                                                    .Include(a => a.Tasks)
                                       select p
                                         ).ToList();
 
 
-            //List<Project> projects = (from p in _repo.Query<Project>()
-            //                          select new Project {
-
-            //                          }
-            //                            ).ToList();
 
             return projects;
         }

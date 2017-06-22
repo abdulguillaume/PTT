@@ -41,38 +41,43 @@
                     <table class="table">
                         <tr>
                             <th colspan="5">
-                                Task List. 
+                                <!--Task List.-->  
+                                <!--(<a href="#" ng-click="controller.showModal(controller.project)">Add new task</a>)-->
+                                <button type="button" class="btn btn-success btn-number" data-type="plus" data-field="plus" ng-click="controller.modalTask(controller.project)"> 
+        <span class="glyphicon glyphicon-plus"></span>
+    </button> <em>Add new task</em>
+
                             </th>
                         </tr>
                         <tr>
                             <th>
-                                Title / Short description
+                                Title/Short description
                             </th>
                             <th>
-                                Status/Priority:
+                                Status/Priority
                             </th>
                             <th>
-                                Budget:
+                                Start/End
                             </th>
                             <th>
-                                Start/End:
+                                Assigned To
                             </th>
                             <th>
-                                Assigned to:
+                                Comments
                             </th>
                             <th>
-                                <button ng-click="controller.showModal(controller.project)">Add Task</button>
+                                
                             </th>
                         </tr>
                         <tr ng-repeat="task in controller.project.tasks">
                             <td>
-                                {{task.name}}/{{task.description}}
+                                <a ui-sref="taskDetails({id: task.id})" class="star">
+                                    <i class="glyphicon glyphicon-check"></i>
+                                </a>
+                                {{task.title}}:<em>{{task.description}}</em>
                             </td>
                             <td>
                                 {{task.status}}/{{task.priority}}
-                            </td>
-                            <td>
-                                {{task.budget}}
                             </td>
                             <td>
                                {{task.startDate|date:medium}}/ {{task.endDate|date:medium}}
@@ -81,7 +86,17 @@
                                 {{task.assignedEmployee}}
                             </td>
                             <td>
-                                ???
+                                <a ui-sref="" class="star">
+                                    <i class="glyphicon glyphicon-comment"></i>
+                                </a>
+                            </td>
+                            <td>
+
+                                <button type="button" class="btn btn-danger btn-number" data-type="minus" data-field="minus">
+                                    <span class="glyphicon glyphicon-minus"></span>
+                                </button>
+
+
                             </td>
                         </tr>
 

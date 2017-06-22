@@ -1,11 +1,12 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace PersonalProjectPTT.Migrations
 {
-    public partial class UpdateModelsDeleteOldMigrationFolder : Migration
+    public partial class ModelsReview : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
