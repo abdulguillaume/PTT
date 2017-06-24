@@ -60,7 +60,9 @@ namespace PersonalProjectPTT.Services
 
         public Project GetProject(int id)
         {
-            Project project = (from p in _repo.Query<Project>().Include(a=>a.Tasks)
+            Project project = (from p in _repo.Query<Project>()
+                               .Include(a=>a.Tasks)
+                               .Include(c=>c.Customer)
                           where p.Id == id
                           select p
                           ).FirstOrDefault();

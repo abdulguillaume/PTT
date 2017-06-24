@@ -23,6 +23,9 @@
 .table-filter .media .title span.created {
 	color: #0026ff;
 }
+span.created {
+	color: #0026ff;
+}
 .table-filter .media .title span.ongoing {
 	color: #2BBCDE;
 }

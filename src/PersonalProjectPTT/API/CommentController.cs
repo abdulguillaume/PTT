@@ -21,45 +21,53 @@ namespace PersonalProjectPTT.API
         }
 
         // GET: api/Comment
-        [HttpGet]
-        public List<Comment> Get()
-        {
-            return _comment.AllComments();
-        }
+        //[HttpGet]
+        //public List<Comment> Get()
+        //{
+        //    return _comment.AllComments();
+        //}
 
         // GET: api/Comment/5
         [HttpGet("{id}")]
-        public Comment Get(int id)
+        public List<Comment> Get(int id)
         {
-            return _comment.GetComment(id);
+            //return _comment.GetComment(id);
+            return _comment.AllComments(id);
+
         }
 
         // POST: api/Comment
         [HttpPost]
-        public IActionResult Post([FromBody]Comment comment)
+        public IActionResult Post([FromBody]CommentRequest rqst)
         {
-            if (comment == null)
+            if (rqst == null)
             {
                 return BadRequest();
             }
-            else if (comment.Id == 0)
+            else if (rqst != null && rqst.comment.Id == 0)
             {
-                _comment.AddComment(comment);
+                rqst.comment.CreateDate = DateTime.Now;
+
+                _comment.AddComment(rqst.taskId, rqst.comment);
+                return Ok();
+
+
+            }
+            else if (rqst != null)
+            {
+                _comment.UpdateComment(rqst.comment);
                 return Ok();
             }
-            else
-            {
-                _comment.UpdateComment(comment);
-                return Ok();
-            }
+
+            return BadRequest(); //in case everything has failed
         }
 
-        
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-            _comment.DeleteComment(id);
-        }
+
+    }
+
+    public class CommentRequest
+    {
+        public int taskId { get; set; }
+        public Comment comment { get; set; }
     }
 }

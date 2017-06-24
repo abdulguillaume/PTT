@@ -43,6 +43,12 @@ namespace PersonalProjectPTT {
                 controller: PersonalProjectPTT.Controllers.AddProjectController,
                 controllerAs: 'controller'
             })
+            .state('editProject', {
+                url: '/editProject/:id',
+                templateUrl: '/ngApp/views/registered/editProject.html',
+                controller: PersonalProjectPTT.Controllers.EditProjectController,
+                controllerAs: 'controller'
+            })
             .state('projectDetails', {
                 url: '/project/:id',
                 templateUrl: '/ngApp/views/registered/projectDetails.html',

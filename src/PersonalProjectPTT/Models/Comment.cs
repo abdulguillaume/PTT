@@ -10,6 +10,8 @@ namespace PersonalProjectPTT.Models
         public int Id { get; set; }
         public string Text { get; set; }
         public string  Author { get; set; }
+        //link to Task
+        public ATask LinkedTask { get; set; }
         public DateTime CreateDate { get; set; }
     }
 }

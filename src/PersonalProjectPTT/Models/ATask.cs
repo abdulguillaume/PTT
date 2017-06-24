@@ -16,9 +16,7 @@ namespace PersonalProjectPTT.Models
         public string Priority { get; set; }
 
         public DateTime StartDate { get; set; }
-        public DateTime? StartReal { get; set; }
         public DateTime EndDate { get; set; }
-        public DateTime? EndReal { get; set; }
 
         public DateTime CreateDate { get; set; }
         public DateTime UpdateDate { get; set; }

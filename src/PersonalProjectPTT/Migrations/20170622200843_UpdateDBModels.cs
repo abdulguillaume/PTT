@@ -1,12 +1,11 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace PersonalProjectPTT.Migrations
 {
-    public partial class ModelsReview : Migration
+    public partial class UpdateDBModels : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -176,13 +175,11 @@ namespace PersonalProjectPTT.Migrations
                     CustomerId = table.Column<int>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     EndDate = table.Column<DateTime>(nullable: false),
-                    EndReal = table.Column<DateTime>(nullable: true),
                     Manager = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     Note = table.Column<string>(nullable: true),
                     Priority = table.Column<string>(nullable: true),
                     StartDate = table.Column<DateTime>(nullable: false),
-                    StartReal = table.Column<DateTime>(nullable: true),
                     Status = table.Column<string>(nullable: true),
                     UpdateDate = table.Column<DateTime>(nullable: false)
                 },
@@ -208,11 +205,9 @@ namespace PersonalProjectPTT.Migrations
                     CreateDate = table.Column<DateTime>(nullable: false),
                     Description = table.Column<string>(nullable: true),
                     EndDate = table.Column<DateTime>(nullable: false),
-                    EndReal = table.Column<DateTime>(nullable: true),
                     LinkedProjectId = table.Column<int>(nullable: true),
                     Priority = table.Column<string>(nullable: true),
                     StartDate = table.Column<DateTime>(nullable: false),
-                    StartReal = table.Column<DateTime>(nullable: true),
                     Status = table.Column<string>(nullable: true),
                     Title = table.Column<string>(nullable: true),
                     UpdateDate = table.Column<DateTime>(nullable: false)
@@ -234,16 +229,17 @@ namespace PersonalProjectPTT.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ATaskId = table.Column<int>(nullable: true),
                     Author = table.Column<string>(nullable: true),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    LinkedTaskId = table.Column<int>(nullable: true),
                     Text = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Comments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Comments_Tasks_ATaskId",
-                        column: x => x.ATaskId,
+                        name: "FK_Comments_Tasks_LinkedTaskId",
+                        column: x => x.LinkedTaskId,
                         principalTable: "Tasks",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -296,9 +292,9 @@ namespace PersonalProjectPTT.Migrations
                 column: "LinkedProjectId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comments_ATaskId",
+                name: "IX_Comments_LinkedTaskId",
                 table: "Comments",
-                column: "ATaskId");
+                column: "LinkedTaskId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Projects_CustomerId",

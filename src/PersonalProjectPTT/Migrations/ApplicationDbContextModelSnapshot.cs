@@ -187,15 +187,11 @@ namespace PersonalProjectPTT.Migrations
 
                     b.Property<DateTime>("EndDate");
 
-                    b.Property<DateTime?>("EndReal");
-
                     b.Property<int?>("LinkedProjectId");
 
                     b.Property<string>("Priority");
 
                     b.Property<DateTime>("StartDate");
-
-                    b.Property<DateTime?>("StartReal");
 
                     b.Property<string>("Status");
 
@@ -233,15 +229,17 @@ namespace PersonalProjectPTT.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("ATaskId");
-
                     b.Property<string>("Author");
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<int?>("LinkedTaskId");
 
                     b.Property<string>("Text");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ATaskId");
+                    b.HasIndex("LinkedTaskId");
 
                     b.ToTable("Comments");
                 });
@@ -261,8 +259,6 @@ namespace PersonalProjectPTT.Migrations
 
                     b.Property<DateTime>("EndDate");
 
-                    b.Property<DateTime?>("EndReal");
-
                     b.Property<string>("Manager");
 
                     b.Property<string>("Name");
@@ -272,8 +268,6 @@ namespace PersonalProjectPTT.Migrations
                     b.Property<string>("Priority");
 
                     b.Property<DateTime>("StartDate");
-
-                    b.Property<DateTime?>("StartReal");
 
                     b.Property<string>("Status");
 
@@ -332,9 +326,9 @@ namespace PersonalProjectPTT.Migrations
 
             modelBuilder.Entity("PersonalProjectPTT.Models.Comment", b =>
                 {
-                    b.HasOne("PersonalProjectPTT.Models.ATask")
+                    b.HasOne("PersonalProjectPTT.Models.ATask", "LinkedTask")
                         .WithMany("Comments")
-                        .HasForeignKey("ATaskId");
+                        .HasForeignKey("LinkedTaskId");
                 });
 
             modelBuilder.Entity("PersonalProjectPTT.Models.Project", b =>

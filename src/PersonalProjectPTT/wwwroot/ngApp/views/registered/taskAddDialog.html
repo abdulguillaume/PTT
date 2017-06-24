@@ -1,0 +1,59 @@
+﻿
+
+    <div class="modal-header">
+        <h3 class="modal-title">Project - {{modal._project.name}}</h3>
+    </div>
+
+    <div class="modal-body">
+
+        <!--<form role="form">-->
+            <div class="form-group">
+                <input id="title" class="form-control" ng-model="modal.task.title" placeholder="Task Title" />
+            </div>
+
+            <div class="form-group">
+
+                <textarea id="desc" class="form-control" ng-model="modal.task.description" placeholder="Description" required></textarea>
+            </div>
+
+            <div class="dropdown form-group">
+                <select class="form-control" ng-model="modal.task.priority" ng-options="priority as priority for priority in modal.priorities" required>
+                    <option value="">---Select priority---</option>
+                </select>
+            </div>
+
+
+            <div class="form-group">
+
+                <input id="budget" class="form-control" ng-model="modal.task.budget" placeholder="Budget" />
+            </div>
+
+            <div class="form-group">
+                <input type="text" class="form-control datepicker" id="startDate" name="startDate" placeholder="Start Date -> MM/dd/yyyy"
+                       ng-model="modal.task.startDate"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <input type="text" class="form-control datepicker" id="endDate" name="endDate" placeholder="End Date -> MM/dd/yyyy"
+                       ng-model="modal.task.endDate"
+                       required>
+
+            </div>
+
+
+            <div class="dropdown form-group">
+                <select class="form-control" ng-model="modal.task.assignedEmployee" ng-options="employee.name as employee.name for employee in modal.employees" required="">
+                    <option value="">---Assign tast to employee---</option>
+                </select>
+            </div>
+        <!--</form>-->
+
+</div>
+
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="modal.ok()">OK</button>
+        <!--<input type="submit" class="btn btn-primary" value="OK" />-->
+    </div>
+
+

@@ -1,5 +1,5 @@
 ﻿<div class="modal-header">
-    <h3 class="modal-title">Project - {{modal._task.name}}</h3>
+    <h3 class="modal-title">Task - {{modal._task.title}}</h3>
 </div>
 
 <div class="modal-body">
@@ -7,46 +7,13 @@
     <form role="form">
 
         <div class="form-group">
-            <input id="title" class="form-control" ng-model="modal.task.title" placeholder="Task Title" />
+            <textarea id="comment" class="form-control" ng-model="modal.comment.text" placeholder="Type comment here..." required ></textarea>
         </div>
-
+        <label>--Comment history--</label>
         <div class="form-group">
 
-            <textarea id="desc" class="form-control" ng-model="modal.task.description" placeholder="Description" required></textarea>
+            <textarea style="height: 150px" id="desc" class="form-control" ng-model="modal.commentsStr" placeholder="Description" disabled></textarea>
         </div>
-
-        <div class="dropdown form-group">
-            <select class="form-control" ng-model="modal.task.priority" ng-options="priority as priority for priority in modal.priorities" required>
-                <option value="">---Select priority---</option>
-            </select>
-        </div>
-
-
-        <div class="form-group">
-
-            <input id="budget" class="form-control" ng-model="modal.task.budget" placeholder="Budget" />
-        </div>
-
-        <div class="form-group">
-            <input type="text" class="form-control datepicker" id="startDate" name="startDate" placeholder="Start Date -> MM/dd/yyyy"
-                   ng-model="modal.task.startDate"
-                   required>
-        </div>
-
-        <div class="form-group">
-            <input type="text" class="form-control datepicker" id="endDate" name="endDate" placeholder="End Date -> MM/dd/yyyy"
-                   ng-model="modal.task.endDate"
-                   required>
-
-        </div>
-
-
-        <div class="dropdown form-group">
-            <select class="form-control" ng-model="modal.task.assignedEmployee" ng-options="employee.name as employee.name for employee in modal.employees" required>
-                <option value="">---Assign tast to employee---</option>
-            </select>
-        </div>
-
 
     </form>
 

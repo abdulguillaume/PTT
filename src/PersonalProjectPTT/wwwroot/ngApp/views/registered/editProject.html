@@ -1,55 +1,67 @@
 ﻿<div class="container">
     <div class="col-md-5">
         <div class="form-area">
-            <form role="form" ng-submit="controller.addProjectRqst()">
+            <form role="form" ng-submit="controller.editProjectRqst()">
                 <br style="clear:both">
                 <h3 style="margin-bottom: 25px; text-align: center;">Project Form</h3>
                 <div class="form-group">
+                    <label>Project name:</label>
                     <input type="text" class="form-control" id="name" name="name" placeholder="Name"
-                           ng-model="controller.projectToAdd.name"
+                           ng-model="controller.projectToEdit.name"
                            required>
                 </div>
 
                 <div class="form-group">
+                    <label>Project description:</label>
                     <textarea class="form-control" id="desc" name="desc" placeholder="Description"
-                           ng-model="controller.projectToAdd.description"
-                           required></textarea>
+                              ng-model="controller.projectToEdit.description"
+                              required></textarea>
                 </div>
 
                 <div class="dropdown form-group">
-                    <label>Please select client:</label>
-                    <select class="form-control" ng-model="controller.projectToAdd.customer.id" ng-options="client.id as client.name for client in controller.clients" required>
+                    <label>Project client:</label>
+                    <select class="form-control" ng-model="controller.projectToEdit.customer.id" ng-options="client.id as client.name for client in controller.clients" required>
                         <option value="">---Select client---</option>
                     </select>
                 </div>
 
                 <div class="dropdown form-group">
-                    <label>Please select the project priority:</label>
-                    <select class="form-control" ng-model="controller.projectToAdd.priority" ng-options="priority as priority for priority in controller.priorities" required>
+                    <label>Project status:</label>
+                    <select class="form-control" ng-model="controller.projectToEdit.status" ng-options="status as status for status in controller.statuses" required="">
+                        <option value="">---Select status---</option>
+                    </select>
+                </div>
+
+                <div class="dropdown form-group">
+                    <label>Project priority:</label>
+                    <select class="form-control" ng-model="controller.projectToEdit.priority" ng-options="priority as priority for priority in controller.priorities" required>
                         <option value="">---Select priority---</option>
                     </select>
                 </div>
 
                 <div class="form-group">
+                    <label>Budget:</label>
                     <input type="text" class="form-control" id="budget" name="budget" placeholder="Budget"
-                           ng-model="controller.projectToAdd.budget"
+                           ng-model="controller.projectToEdit.budget"
                            required>
                 </div>
 
                 <div class="form-group">
+                    <label>Start date:</label>
                     <input type="text" class="form-control datepicker" id="startDate" name="startDate" placeholder="Start End -> MM/dd/yyyy"
-                           ng-model="controller.projectToAdd.startDate"
+                           ng-model="controller.projectToEdit.startDate"
                            required>
                 </div>
 
                 <div class="form-group">
+                    <label>End date:</label>
                     <input type="text" class="form-control datepicker" id="endDate" name="endDate" placeholder="End Date -> MM/dd/yyyy"
-                           ng-model="controller.projectToAdd.endDate" 
+                           ng-model="controller.projectToEdit.endDate"
                            required>
-                    
+
                 </div>
 
-                <br />                     
+                <br />
 
                 <input type="submit" class="btn btn-primary" value="Submit" />
                 <button class="btn btn-xs" ui-sref="projects">Cancel</button>
