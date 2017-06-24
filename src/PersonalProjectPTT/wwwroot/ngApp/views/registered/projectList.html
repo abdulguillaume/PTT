@@ -1,14 +1,14 @@
-﻿<!--<div class="text-center tableTitle">
-    <h2>{{controller.message}}</h2>
-    <h5>Check and edit projects information...</h5>
-</div>-->
-
+﻿
 <div class="container">
     <div class="row">
 
         <section class="content">
-            <h2>{{controller.message}}</h2>
-            <h5>Check and edit projects information...</h5>
+
+            <div class="text-center">
+                <h2>{{controller.message}}</h2>
+                <h5>Check and edit projects information...</h5>
+            </div>
+            
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-body">
@@ -17,13 +17,21 @@
                                 <button type="button" class="btn {{status.btn}} btn-filter" ng-repeat="status in controller.statuses" data-target="{{status.name}}" onclick="filter(this)"> {{status.name}}</button>
                             </div>
                         </div>
+
+                        <div>
+                            <button type="button" class="btn btn-success btn-number" data-type="plus" data-field="plus" ng-click="controller.modalAddProject()">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </button> <em>Add new project</em>
+                        </div>
+
+
                         <div class="table-container">
                             <table class="table table-filter">
                                 <tbody>
                                     <tr ng-repeat="project in controller.projects" data-status="{{project.status}}">
                                         <td>
-                                            <a ui-sref="projectDetails({id: project.id})" class="star">
-                                                <i class="glyphicon glyphicon-star"></i>
+                                            <a ui-sref="projectDetails({id: project.id})">
+                                                <i class="glyphicon glyphicon-edit"></i>
                                             </a>
                                         </td>
                                         <td>
@@ -44,12 +52,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="content-footer">
-                    <p>
-                        Copyright © - 2017 <br>
-                        <!--Powered By <a href="https://www.facebook.com/tavo.qiqe.lucero" target="_blank">TavoQiqe</a>-->
-                    </p>
-                </div>
+               
             </div>
         </section>
 

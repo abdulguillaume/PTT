@@ -32,7 +32,7 @@
             </tr>
             <tr>
                 <td class="text-center">Note:</td>
-                <td>{{controller.project.Note}}</td>
+                <td><em>{{controller.project.note}}</em></td>
             </tr>
             <tr>
                 <td colspan="2">
@@ -41,7 +41,16 @@
                     <table class="table">
                         <tr>
                             <th>
-                                <button type="button" class="btn btn-warning btn-number" data-type="plus" data-field="plus" ui-sref="editProject({id: controller.project.id})">
+                                <button type="button" class="btn btn-info btn-number" data-type="plus" data-field="plus" ui-sref="projects">
+                                    <span class="glyphicon glyphicon-arrow-left"></span>
+                                </button> <em>Back to project list</em>
+                                <!--Task List.-->
+                                <!--(<a href="#" ng-click="controller.showModal(controller.project)">Add new task</a>)-->
+
+
+                            </th>
+                            <th colspan="2">
+                                <button type="button" class="btn btn-warning btn-number" data-type="plus" data-field="plus" ng-click="controller.modalEditProject(controller.project)">
                                     <span class="glyphicon glyphicon-edit"></span>
                                 </button> <em>Edit project</em>
                                 <!--Task List.-->  
@@ -50,7 +59,7 @@
 
                             </th>
 
-                            <th colspan="4">
+                            <th colspan="2">
 
                                 <button type="button" class="btn btn-success btn-number" data-type="plus" data-field="plus" ng-click="controller.modalAddTask(controller.project)">
                                     <span class="glyphicon glyphicon-plus"></span>
@@ -80,8 +89,8 @@
                         </tr>
                         <tr ng-repeat="task in controller.project.tasks">
                             <td>
-                                <a ng-click="controller.modalEditTask(controller.project.name, task)" class="star">
-                                    <i class="glyphicon glyphicon-check"></i>
+                                <a ng-click="controller.modalEditTask(controller.project.name, task)">
+                                    <i class="glyphicon glyphicon-edit"></i>
                                 </a>
                                 {{task.title}}:<em>{{task.description}}</em>
                             </td>

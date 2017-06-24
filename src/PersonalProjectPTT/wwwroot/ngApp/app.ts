@@ -13,42 +13,42 @@ namespace PersonalProjectPTT {
                 controller: PersonalProjectPTT.Controllers.HomeController,
                 controllerAs: 'controller'
             })
-            .state('secret', {
-                url: '/secret',
-                templateUrl: '/ngApp/views/secret.html',
-                controller: PersonalProjectPTT.Controllers.SecretController,
-                controllerAs: 'controller'
-            })
+            //.state('secret', {
+            //    url: '/secret',
+            //    templateUrl: '/ngApp/views/secret.html',
+            //    controller: PersonalProjectPTT.Controllers.SecretController,
+            //    controllerAs: 'controller'
+            //})
             .state('clients', {
                 url: '/clients',
                 templateUrl: '/ngApp/views/registered/clientList.html',
                 controller: PersonalProjectPTT.Controllers.ClientListController,
                 controllerAs: 'controller'
             })
-            .state('addClient', {
-                url: '/addClient',
-                templateUrl: '/ngApp/views/registered/addClient.html',
-                controller: PersonalProjectPTT.Controllers.AddClientController,
-                controllerAs: 'controller'
-            })
+            //.state('addClient', {
+            //    url: '/addClient',
+            //    templateUrl: '/ngApp/views/registered/addClient.html',
+            //    controller: PersonalProjectPTT.Controllers.AddClientController,
+            //    controllerAs: 'controller'
+            //})
             .state('projects', {
                 url: '/projects',
                 templateUrl: '/ngApp/views/registered/projectList.html',
                 controller: PersonalProjectPTT.Controllers.ProjectListController,
                 controllerAs: 'controller'
             })
-            .state('addProject', {
-                url: '/addProject',
-                templateUrl: '/ngApp/views/registered/addProject.html',
-                controller: PersonalProjectPTT.Controllers.AddProjectController,
-                controllerAs: 'controller'
-            })
-            .state('editProject', {
-                url: '/editProject/:id',
-                templateUrl: '/ngApp/views/registered/editProject.html',
-                controller: PersonalProjectPTT.Controllers.EditProjectController,
-                controllerAs: 'controller'
-            })
+            //.state('addProject', {
+            //    url: '/addProject',
+            //    templateUrl: '/ngApp/views/registered/addProject.html',
+            //    controller: PersonalProjectPTT.Controllers.AddProjectController,
+            //    controllerAs: 'controller'
+            //})
+            //.state('editProject', {
+            //    url: '/editProject/:id',
+            //    templateUrl: '/ngApp/views/registered/editProject.html',
+            //    controller: PersonalProjectPTT.Controllers.EditProjectController,
+            //    controllerAs: 'controller'
+            //})
             .state('projectDetails', {
                 url: '/project/:id',
                 templateUrl: '/ngApp/views/registered/projectDetails.html',
@@ -67,18 +67,18 @@ namespace PersonalProjectPTT {
                 controller: PersonalProjectPTT.Controllers.RegisterController,
                 controllerAs: 'controller'
             })
-            .state('externalRegister', {
-                url: '/externalRegister',
-                templateUrl: '/ngApp/views/externalRegister.html',
-                controller: PersonalProjectPTT.Controllers.ExternalRegisterController,
-                controllerAs: 'controller'
-            }) 
-            .state('about', {
-                url: '/about',
-                templateUrl: '/ngApp/views/about.html',
-                controller: PersonalProjectPTT.Controllers.AboutController,
-                controllerAs: 'controller'
-            })
+            //.state('externalRegister', {
+            //    url: '/externalRegister',
+            //    templateUrl: '/ngApp/views/externalRegister.html',
+            //    controller: PersonalProjectPTT.Controllers.ExternalRegisterController,
+            //    controllerAs: 'controller'
+            //}) 
+            //.state('about', {
+            //    url: '/about',
+            //    templateUrl: '/ngApp/views/about.html',
+            //    controller: PersonalProjectPTT.Controllers.AboutController,
+            //    controllerAs: 'controller'
+            //})
             .state('notFound', {
                 url: '/notFound',
                 templateUrl: '/ngApp/views/notFound.html'

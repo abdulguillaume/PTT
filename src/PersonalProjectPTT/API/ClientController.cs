@@ -23,6 +23,7 @@ namespace PersonalProjectPTT.API
         }
 
         [HttpGet]
+        [Authorize]
         public List<Client> Get()
         {
 
@@ -32,6 +33,7 @@ namespace PersonalProjectPTT.API
 
 
         [HttpGet("{id}")]
+        [Authorize]
         public Client Get(int id)
         {
             return _client.GetClient(id);
@@ -39,7 +41,7 @@ namespace PersonalProjectPTT.API
 
 
         [HttpPost]
-        //[Authorize]
+        [Authorize]
         public IActionResult Post([FromBody]Client client)
         {
             if (client == null)
@@ -62,7 +64,7 @@ namespace PersonalProjectPTT.API
 
 
         [HttpDelete("{id}")]
-        //[Authorize(Policy = "AdminOnly")]
+        [Authorize(Policy = "AdminOnly")]
         public void Delete(int id)
         {
             _client.DeleteClient(id);

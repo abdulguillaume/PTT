@@ -1,0 +1,33 @@
+﻿
+<div class="modal-header">
+    <!--<h3 class="modal-title">Add new Client</h3>-->
+    <h3 style="margin-bottom: 25px; text-align: center;">Client Form (Edit)</h3>
+</div>
+
+<div class="modal-body">
+
+    <form role="form">
+        <br style="clear:both">
+        <!--<h3 style="margin-bottom: 25px; text-align: center;">Client Form</h3>-->
+        <div class="form-group">
+            <label>Client name: </label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Name"
+                   ng-model="modal.clientToEdit.name"
+                   disabled>
+        </div>
+
+        <div class="dropdown form-group">
+            <label>Please select type of client:</label>
+            <select class="form-control" ng-model="modal.clientToEdit.type" ng-options="type as type for type in modal.types" required>
+                <option value="">---Select a type---</option>
+            </select>
+        </div>
+
+    </form>
+
+
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="modal.ok()">OK</button>
+</div>

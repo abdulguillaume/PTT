@@ -43,7 +43,10 @@ span.created {
 	font-size: 14px;
 }
 
+.logo {
 
+    font-family: 'Georgia';
+}
 /*.modal-content {
    width: 80%;
    height:80%;

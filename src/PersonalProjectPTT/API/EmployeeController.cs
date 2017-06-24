@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using PersonalProjectPTT.Services;
 using PersonalProjectPTT.Models;
 using PersonalProjectPTT.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PersonalProjectPTT.API
 {
@@ -23,6 +24,7 @@ namespace PersonalProjectPTT.API
 
         // GET: api/Employee
         [HttpGet]
+        [Authorize]
         public List<Employee> Get()
         {
             return _emps.AllEmployees();

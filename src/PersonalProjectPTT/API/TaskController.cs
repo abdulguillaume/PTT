@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PersonalProjectPTT.Interfaces;
 using PersonalProjectPTT.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PersonalProjectPTT.API
 {
@@ -23,6 +24,7 @@ namespace PersonalProjectPTT.API
 
         // GET: api/Task
         [HttpGet]
+        [Authorize]
         public List<ATask> Get()
         {
             return _task.AllTasks();
@@ -30,6 +32,7 @@ namespace PersonalProjectPTT.API
 
         // GET: api/Task/5
         [HttpGet("{id}")]
+        [Authorize]
         public ATask Get(int id)
         {
             return _task.GetTask(id);
@@ -37,7 +40,7 @@ namespace PersonalProjectPTT.API
 
         // POST: api/Task
         [HttpPost]
-        //[Authorize]
+        [Authorize]
         public IActionResult Post([FromBody]TaskRequest rqst)//[FromBody]ATask task) //changed in order to receive 2 parameters in the post request
         {
             if (rqst == null)
@@ -63,6 +66,7 @@ namespace PersonalProjectPTT.API
         
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
+        [Authorize]
         public void Delete(int id)
         {
             _task.DeleteTask(id);

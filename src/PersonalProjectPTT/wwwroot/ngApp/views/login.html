@@ -1,32 +1,30 @@
-<fieldset>
-    <legend>Login with a Social Provider</legend>
 
-    <ul>
-        <li ng-repeat="externalLogin in account.externalLogins">
-            <a target="_self" href="/api/account/ExternalLogin?provider={{externalLogin.authenticationScheme}}&returnUrl=/">{{externalLogin.displayName}}</a>
-        </li>
-    </ul>
+<div class="col-md-4 col-md-offset-4 text-center">
+    <div class="text-center">
+        <h2>Login</h2>
 
-</fieldset>
+        <ul>
+            <li ng-repeat="error in controller.validationMessages">
+                {{error}}
+            </li>
+        </ul>
 
-<fieldset>
-    <legend>Login Locally</legend>
-    <ul>
-        <li ng-repeat="error in controller.validationMessages">
-            {{error}}
-        </li>
-    </ul>
+        <form ng-submit="controller.login()">
+            <div>
+                <input ng-model="controller.loginUser.email" class="form-control" type="text" placeholder="Username" required/>
+            </div>
+            <div>
+                <input ng-model="controller.loginUser.password" class="form-control" type="password" placeholder="Password" required/>
+            </div>
+            <div>
+                <input type="submit" value="Login" class="btn btn-primary btn-lg btn-block" />
+            </div>
+            <div>
+                <a href="/register">Register</a>
+            </div>
+            
+        </form>
+    </div>
 
-    <form ng-submit="controller.login()">
-        <div>
-            <label>Email:</label>
-            <input ng-model="controller.loginUser.email" />
-        </div>
-        <div>
-            <label>Password:</label>
-            <input ng-model="controller.loginUser.password" />
-        </div>
-        <input type="submit" value="Login" />
-        <a href="/register">Register</a>
-    </form>
-</fieldset>
+
+</div>

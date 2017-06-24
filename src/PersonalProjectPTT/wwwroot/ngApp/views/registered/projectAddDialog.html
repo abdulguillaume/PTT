@@ -1,0 +1,62 @@
+﻿<div class="modal-header">
+    <h3 style="margin-bottom: 25px; text-align: center;">Project Form (Add)</h3>
+</div>
+
+<div class="modal-body">
+
+    <form role="form">
+        <!--<br style="clear:both">
+        <h3 style="margin-bottom: 25px; text-align: center;">Project Form</h3>-->
+        <div class="form-group">
+            <input type="text" class="form-control" id="name" name="name" placeholder="Name"
+                   ng-model="modal.projectToAdd.name"
+                   required>
+        </div>
+
+        <div class="form-group">
+            <textarea class="form-control" id="desc" name="desc" placeholder="Description"
+                      ng-model="modal.projectToAdd.description"
+                      required></textarea>
+        </div>
+
+        <div class="dropdown form-group">
+            <label>Please select client:</label>
+            <select class="form-control" ng-model="modal.projectToAdd.customer.id" ng-options="client.id as client.name for client in modal.clients" required>
+                <option value="">---Select client---</option>
+            </select>
+        </div>
+
+        <div class="dropdown form-group">
+            <label>Please select the project priority:</label>
+            <select class="form-control" ng-model="modal.projectToAdd.priority" ng-options="priority as priority for priority in modal.priorities" required>
+                <option value="">---Select priority---</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <input type="text" class="form-control" id="budget" name="budget" placeholder="Budget"
+                   ng-model="modal.projectToAdd.budget"
+                   required>
+        </div>
+
+        <div class="form-group">
+            <input type="text" class="form-control datepicker" id="startDate" name="startDate" placeholder="Start End -> MM/dd/yyyy"
+                   ng-model="modal.projectToAdd.startDate"
+                   required>
+        </div>
+
+        <div class="form-group">
+            <input type="text" class="form-control datepicker" id="endDate" name="endDate" placeholder="End Date -> MM/dd/yyyy"
+                   ng-model="modal.projectToAdd.endDate"
+                   required>
+
+        </div>
+
+    </form>
+
+</div>
+
+
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="modal.ok()">OK</button>
+</div>

@@ -1,0 +1,78 @@
+﻿<div class="modal-header">
+    <h3 style="margin-bottom: 25px; text-align: center;">Project Form (Add)</h3>
+</div>
+
+
+<div class="modal-body">
+
+    <form role="form">
+        <div class="form-group">
+            <label>Project name:</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Name"
+                   ng-model="modal.projectToEdit.name"
+                   required>
+        </div>
+
+        <div class="form-group">
+            <label>Project description:</label>
+            <textarea class="form-control" id="desc" name="desc" placeholder="Description"
+                      ng-model="modal.projectToEdit.description"
+                      required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Note:</label>
+            <textarea class="form-control" id="desc" name="desc" placeholder="Note"
+                      ng-model="modal.projectToEdit.note"
+                      required></textarea>
+        </div>
+
+        <div class="dropdown form-group">
+            <label>Project client:</label>
+            <select class="form-control" ng-model="modal.projectToEdit.customer.id" ng-options="client.id as client.name for client in modal.clients" required>
+                <option value="">---Select client---</option>
+            </select>
+        </div>
+
+        <div class="dropdown form-group">
+            <label>Project status:</label>
+            <select class="form-control" ng-model="modal.projectToEdit.status" ng-options="status as status for status in modal.statuses" required="">
+                <option value="">---Select status---</option>
+            </select>
+        </div>
+
+        <div class="dropdown form-group">
+            <label>Project priority:</label>
+            <select class="form-control" ng-model="modal.projectToEdit.priority" ng-options="priority as priority for priority in modal.priorities" required>
+                <option value="">---Select priority---</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Budget:</label>
+            <input type="text" class="form-control" id="budget" name="budget" placeholder="Budget"
+                   ng-model="modal.projectToEdit.budget"
+                   required>
+        </div>
+
+        <div class="form-group">
+            <label>Start date:</label>
+            <input type="text" class="form-control datepicker" id="startDate" name="startDate" placeholder="Start End -> MM/dd/yyyy"
+                   ng-model="modal.projectToEdit.startDate"
+                   required>
+        </div>
+
+        <div class="form-group">
+            <label>End date:</label>
+            <input type="text" class="form-control datepicker" id="endDate" name="endDate" placeholder="End Date -> MM/dd/yyyy"
+                   ng-model="modal.projectToEdit.endDate"
+                   required>
+
+        </div>
+
+    </form>
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="modal.ok()">OK</button>
+</div>

@@ -13,34 +13,86 @@ namespace PersonalProjectPTT.Controllers {
 
 
     export class HomeController {
-        public message = "Hello from the home page!";
+        public message = "Welcome!";
     }
 
 
-    export class SecretController {
-        public secrets;
+    //export class SecretController {
+    //    public secrets;
 
-        constructor($http: ng.IHttpService) {
-            $http.get("/api/secrets").then((results) => {
-                this.secrets = results.data;
-            });
-        }
-    }
+    //    constructor($http: ng.IHttpService) {
+    //        $http.get("/api/secrets").then((results) => {
+    //            this.secrets = results.data;
+    //        });
+    //    }
+    //}
 
 
     export class AboutController {
         public message = "Hello from the about page!";
     }
 
-    export class AddClientController {
-
+    export class ClientListController {
+        public message = `Below are registered clients.`;
         public clients;
+
+        public deleteClient(id: number) {
+            this.$http.delete(`/api/client/` + id).then(() => {
+                this.$state.reload();
+            })
+        }
+
+        public modalAddClient()
+        {
+            let that = this;
+
+            this.$uibModal.open({
+                templateUrl: '/ngApp/views/registered/addClientDialog.html',
+                controller: 'DialogAddClientController',
+                controllerAs: 'modal',
+                size: 'sm'
+            })
+                .result
+                .then(function () {
+                    that.$state.reload();
+                });
+        }
+
+
+        public modalEditClient(obj: any) {
+            let that = this;
+            debugger;
+            this.$uibModal.open({
+                templateUrl: '/ngApp/views/registered/editClientDialog.html',
+                controller: 'DialogEditClientController',
+                controllerAs: 'modal',
+                size: 'sm',
+                resolve: {
+                    clientToEdit: () => obj
+                }
+            })
+                .result
+                .then(function () {
+                    that.$state.reload();
+                });
+        }
+
+
+        constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService, private $uibModal: angular.ui.bootstrap.IModalService) {
+            $http.get(`/api/client`).then((response) => {
+                this.clients = response.data;
+            });
+
+        }
+    }
+
+    export class DialogAddClientController {
 
         public clientToAdd;
 
         public types = ["individual", "group", "organization"];
 
-        public addClientRqst() {
+        public ok() {
 
             let user = this.accountService.getUserName();
 
@@ -50,35 +102,28 @@ namespace PersonalProjectPTT.Controllers {
             this.clientToAdd.createBy = user;
 
             this.$http.post(`/api/client`, this.clientToAdd).then((response) => {
-                this.$state.go(`clients`);
+                this.$uibModalInstance.close();
             })
         }
 
-        constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService, private accountService: PersonalProjectPTT.Services.AccountService) {
-
-
-            $http.get(`/api/client`).then((response) => {
-                this.clients = response.data;
-            })
+        constructor(private $uibModalInstance: angular.ui.bootstrap.IModalServiceInstance, private $http: ng.IHttpService, private $state: ng.ui.IStateService, private accountService: PersonalProjectPTT.Services.AccountService) {
 
         }
     }
 
-    export class ClientListController {
-        public message = `Below are our registered clients.`;
-        public clients;
+    export class DialogEditClientController {
 
-        public deleteClient(id: number) {
-            this.$http.delete(`/api/client/` + id).then(() => {
-                this.$state.reload();
+        public types = ["individual", "group", "organization"];
+
+        public ok() {
+
+            this.$http.post(`/api/client`, this.clientToEdit).then((response) => {
+                this.$uibModalInstance.close();
             })
         }
 
-        constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService) {
-            $http.get(`/api/client`).then((response) => {
-                this.clients = response.data;
-            });
-
+        constructor(private clientToEdit: any, private $uibModalInstance: angular.ui.bootstrap.IModalServiceInstance, private $http: ng.IHttpService, private $state: ng.ui.IStateService, private accountService: PersonalProjectPTT.Services.AccountService) {
+            debugger;
         }
     }
 
@@ -109,8 +154,24 @@ namespace PersonalProjectPTT.Controllers {
             }
         ];
 
+        public modalAddProject()
+        {
+            let that = this;
 
-        constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService) {
+            this.$uibModal.open({
+                templateUrl: '/ngApp/views/registered/projectAddDialog.html',
+                controller: 'DialogAddProjectController',
+                controllerAs: 'modal',
+                size: 'lg'
+            })
+                .result
+                .then(function () {
+                    that.$state.reload();
+                });
+        }
+
+
+        constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService, private $uibModal: angular.ui.bootstrap.IModalService) {
             $http.get(`/api/project`).then((response) => {
                 this.projects = response.data;
             });
@@ -118,20 +179,15 @@ namespace PersonalProjectPTT.Controllers {
         }
     }
 
-
-    export class AddProjectController {
-
-        //public projects;
+    export class DialogAddProjectController {
 
         public projectToAdd;
 
         public priorities = ["urgent", "high", "medium", "low"];
 
-        //public statuses = ["created", "ongoing", "completed", "pending", "cancelled"];
-
         public clients;
 
-        public addProjectRqst() {
+        public ok() {
 
             let user = this.accountService.getUserName();
 
@@ -142,19 +198,16 @@ namespace PersonalProjectPTT.Controllers {
 
             this.projectToAdd.status = "created";
 
-            this.$http.post(`/api/project`, this.projectToAdd).then((response) => {
-                this.$state.go(`projects`);
-            });
+            debugger;
 
+            this.$http.post(`/api/project`, this.projectToAdd).then((response) => {
+
+                this.$uibModalInstance.close();
+            });
 
         }
 
-        constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService, private accountService: PersonalProjectPTT.Services.AccountService
-        ) {
-
-            //$http.get(`/api/project`).then((response) => {
-            //    this.projects = response.data;
-            //});
+        constructor(private $uibModalInstance: angular.ui.bootstrap.IModalServiceInstance, private $http: ng.IHttpService, private $state: ng.ui.IStateService, private accountService: PersonalProjectPTT.Services.AccountService) {
 
             $http.get(`/api/client`).then((response) => {
                 this.clients = response.data;
@@ -163,10 +216,7 @@ namespace PersonalProjectPTT.Controllers {
         }
     }
 
-
-    export class EditProjectController {
-
-        public projectToEdit;
+    export class DialogEditProjectController {
 
         public priorities = ["urgent", "high", "medium", "low"];
 
@@ -174,22 +224,19 @@ namespace PersonalProjectPTT.Controllers {
 
         public clients;
 
-        public editProjectRqst() {
-
-           // let that = this;
+        public ok() {
 
             this.$http.post(`/api/project`, this.projectToEdit).then((response) => {
-                this.$state.go(`projectDetails`,{id: this.projectToEdit.id});
+                //this.$state.go(`projectDetails`,{id: this.projectToEdit.id});
+                this.$uibModalInstance.close();
             });
 
         }
 
-        constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService, private $stateParams: ng.ui.IStateParamsService, private accountService: PersonalProjectPTT.Services.AccountService
+        constructor(private projectToEdit: any, private $http: ng.IHttpService, private $state: ng.ui.IStateService, private $uibModalInstance: angular.ui.bootstrap.IModalServiceInstance
         ) {
 
-            let projectId = $stateParams[`id`];
-
-            $http.get(`/api/project/` + projectId ).then((response) => {
+            $http.get(`/api/project/` + this.projectToEdit.id ).then((response) => {
                 this.projectToEdit = response.data;
             });
 
@@ -201,11 +248,29 @@ namespace PersonalProjectPTT.Controllers {
         }
     }
 
-
     export class AboutProjectController {
 
         public project;
 
+
+        public modalEditProject(obj: any)
+        {
+            let that = this;
+
+            this.$uibModal.open({
+                templateUrl: '/ngApp/views/registered/projectEditDialog.html',
+                controller: 'DialogEditProjectController',
+                controllerAs: 'modal',
+                resolve: {
+                    projectToEdit: () => obj
+                },
+                size: 'lg'
+            })
+                .result
+                .then(function () {
+                    that.$state.reload();
+                });
+        }
 
         public modalAddTask(obj: _Project)
         {
@@ -371,9 +436,12 @@ namespace PersonalProjectPTT.Controllers {
         }
     }
 
+    
 
-
-
+    angular.module('PersonalProjectPTT').controller('DialogAddClientController', DialogAddClientController);
+    angular.module('PersonalProjectPTT').controller('DialogEditClientController', DialogEditClientController);
+    angular.module('PersonalProjectPTT').controller('DialogAddProjectController', DialogAddProjectController);
+    angular.module('PersonalProjectPTT').controller('DialogEditProjectController', DialogEditProjectController);
     angular.module('PersonalProjectPTT').controller('DialogAddTaskController', DialogAddTaskController);
     angular.module('PersonalProjectPTT').controller('DialogEditTaskController', DialogEditTaskController);
     angular.module('PersonalProjectPTT').controller('DialogCommentController', DialogCommentController);

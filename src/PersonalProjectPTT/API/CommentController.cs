@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PersonalProjectPTT.Interfaces;
 using PersonalProjectPTT.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PersonalProjectPTT.API
 {
@@ -29,6 +30,7 @@ namespace PersonalProjectPTT.API
 
         // GET: api/Comment/5
         [HttpGet("{id}")]
+        [Authorize]
         public List<Comment> Get(int id)
         {
             //return _comment.GetComment(id);
@@ -38,6 +40,7 @@ namespace PersonalProjectPTT.API
 
         // POST: api/Comment
         [HttpPost]
+        [Authorize]
         public IActionResult Post([FromBody]CommentRequest rqst)
         {
             if (rqst == null)

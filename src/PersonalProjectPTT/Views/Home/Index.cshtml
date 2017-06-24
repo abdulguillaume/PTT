@@ -19,7 +19,7 @@
 
 </head>
 <body ng-controller="AccountController as account" ng-cloak>
-    <div class="container">
+    @*<div class="container">
         <h1>PersonalProjectPTT</h1>
         <div>
           <a href="/">Home</a> /
@@ -36,7 +36,45 @@
 
         <ui-view></ui-view>
 
+    </div>*@
+
+
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header   logo">
+                <a class="navbar-brand" href="#">Project Tracking Tool - PTT</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li ui-sref-active="{'active': 'home'}"><a href="/">Home</a></li>
+                <li ui-sref-active="{'active': 'clients'}"><a href="/clients">Clients</a></li>
+                <li id="projectLi" ui-sref-active="{'active': 'projects'} {'active': 'projectDetails'}"><a href="/projects">Projects</a></li>
+                <li ui-sref-active="{'active': 'login'}">
+                    <a href="/login" ng-show="!account.isLoggedIn()">Login</a>
+                    <a href="#" ng-click="account.logout()" ng-show="account.isLoggedIn()">Logout</a>
+                </li>
+            </ul>
+
+            <div class="pull-right">
+                <h6 ng-show="account.isLoggedIn()">User: {{account.getUserName()}}</h6>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <ui-view></ui-view>
+
+        @*<h3>Basic Navbar Example</h3>
+        <p>A navigation bar is a navigation header that is placed at the top of the page.</p>*@
     </div>
+
+    <div class="content-footer text-center">
+        <p>
+            Copyright - 2017 <br>
+        </p>
+    </div>
+
+
 
     <!-- Library Files -->
     <script src="/bower_components/angular/angular.js"></script>

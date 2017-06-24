@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using PersonalProjectPTT.Interfaces;
 using PersonalProjectPTT.Models;
 using PersonalProjectPTT.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PersonalProjectPTT.API
 {
@@ -23,6 +24,7 @@ namespace PersonalProjectPTT.API
         }
         // GET: api/Project
         [HttpGet]
+
         public List<Project> Get()
         {
             return _project.AllProjects();
@@ -30,6 +32,7 @@ namespace PersonalProjectPTT.API
 
         // GET: api/Project/5
         [HttpGet("{id}")]
+        [Authorize]
         public Project Get(int id)
         {
             return _project.GetProject(id);
@@ -37,6 +40,7 @@ namespace PersonalProjectPTT.API
 
         // POST: api/Project
         [HttpPost]
+        [Authorize]
         public IActionResult Post([FromBody]Project project)
         {
             if (project == null)
@@ -61,6 +65,7 @@ namespace PersonalProjectPTT.API
         
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
+        [Authorize(Policy = "AdminOnly")]
         public void Delete(int id)
         {
             _project.DeleteProject(id);
