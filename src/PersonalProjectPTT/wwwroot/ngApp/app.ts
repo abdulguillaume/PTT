@@ -1,6 +1,6 @@
 namespace PersonalProjectPTT {
 
-    angular.module('PersonalProjectPTT', ['ui.router', 'ngResource', 'ui.bootstrap', 'ngMaterial','ngMessages']).config((
+    angular.module('PersonalProjectPTT', ['ui.router', 'ngResource', 'ui.bootstrap', 'ngMaterial', 'ngMessages']).config((
         $stateProvider: ng.ui.IStateProvider,
         $urlRouterProvider: ng.ui.IUrlRouterProvider,
         $locationProvider: ng.ILocationProvider

@@ -17,17 +17,6 @@ namespace PersonalProjectPTT.Controllers {
     }
 
 
-    //export class SecretController {
-    //    public secrets;
-
-    //    constructor($http: ng.IHttpService) {
-    //        $http.get("/api/secrets").then((results) => {
-    //            this.secrets = results.data;
-    //        });
-    //    }
-    //}
-
-
     export class AboutController {
         public message = "Hello from the about page!";
     }
@@ -37,9 +26,33 @@ namespace PersonalProjectPTT.Controllers {
         public clients;
 
         public deleteClient(id: number) {
-            this.$http.delete(`/api/client/` + id).then(() => {
-                this.$state.reload();
-            })
+
+            debugger;
+
+            if (!this.accountService.getClaim('IsAdmin')) {
+
+                let msg = `Operation not allowed. ${this.accountService.getUserName()} is not an admin!`;
+
+                this.$uibModal.open({
+                    templateUrl: '/ngApp/views/registered/alertDialog.html',
+                    controller: 'DialogAlertController',
+                    controllerAs: 'modal',
+                    size: 'sm',
+                    resolve: {
+                        msg: () => msg
+                    }
+                });
+
+            } else {
+
+                debugger;
+
+                this.$http.delete(`/api/client/` + id).then(() => {
+                    this.$state.reload();
+                })
+            }
+
+            
         }
 
         public modalAddClient()
@@ -78,11 +91,23 @@ namespace PersonalProjectPTT.Controllers {
         }
 
 
-        constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService, private $uibModal: angular.ui.bootstrap.IModalService) {
+        constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService, private $uibModal: angular.ui.bootstrap.IModalService, private accountService: PersonalProjectPTT.Services.AccountService) {
             $http.get(`/api/client`).then((response) => {
                 this.clients = response.data;
             });
 
+        }
+    }
+
+    export class DialogAlertController {
+
+        public ok(){
+            this.$uibModalInstance.close();
+        }
+
+        constructor(private msg:string, private $uibModalInstance: angular.ui.bootstrap.IModalServiceInstance) {
+
+            debugger;
         }
     }
 
@@ -255,63 +280,164 @@ namespace PersonalProjectPTT.Controllers {
 
         public modalEditProject(obj: any)
         {
-            let that = this;
+            debugger;
 
-            this.$uibModal.open({
-                templateUrl: '/ngApp/views/registered/projectEditDialog.html',
-                controller: 'DialogEditProjectController',
-                controllerAs: 'modal',
-                resolve: {
-                    projectToEdit: () => obj
-                },
-                size: 'lg'
-            })
-                .result
-                .then(function () {
-                    that.$state.reload();
+            if (this.accountService.getUserName() != this.project.manager) {
+
+                debugger;
+
+                let msg = "You cannot modify this project. You are not the Project Manager!";
+
+                this.$uibModal.open({
+                    templateUrl: '/ngApp/views/registered/alertDialog.html',
+                    controller: 'DialogAlertController',
+                    controllerAs: 'modal',
+                    size: 'sm',
+                    resolve: {
+                        msg: () => msg
+                    }
                 });
+
+            } else {
+
+                let that = this;
+
+                this.$uibModal.open({
+                    templateUrl: '/ngApp/views/registered/projectEditDialog.html',
+                    controller: 'DialogEditProjectController',
+                    controllerAs: 'modal',
+                    resolve: {
+                        projectToEdit: () => obj
+                    },
+                    size: 'lg'
+                })
+                    .result
+                    .then(function () {
+                        that.$state.reload();
+                    });
+
+            }
         }
 
         public modalAddTask(obj: _Project)
         {
-            let that = this;
-
-            this.$uibModal.open({
-                templateUrl: '/ngApp/views/registered/taskAddDialog.html',
-                controller: 'DialogAddTaskController',
-                controllerAs: 'modal',
-                resolve: {
-                    _project: () => obj
-                },
-                size: 'lg'
-            })
-                .result
-                .then(function () {
-                    that.$state.reload();
-                });
-        }
-
-        public modalEditTask(projectName: string, obj: _Task) {
-            let that = this;
 
             debugger;
 
-            this.$uibModal.open({
-                templateUrl: '/ngApp/views/registered/taskEditDialog.html',
-                controller: 'DialogEditTaskController',
-                controllerAs: 'modal',
-                resolve: {
-                    projectName: () => projectName,
-                    task: () => obj
-                },
-                size: 'lg'
-            })
-                .result
-                .then(function () {
-                    that.$state.reload();
+            if (!this.accountService.getClaim('IsAdmin') && this.accountService.getUserName() != this.project.manager) {
+
+
+                debugger;
+
+                let msg = "You cannot add task to this project. You are not the Project Manager!";
+
+                this.$uibModal.open({
+                    templateUrl: '/ngApp/views/registered/alertDialog.html',
+                    controller: 'DialogAlertController',
+                    controllerAs: 'modal',
+                    size: 'sm',
+                    resolve: {
+                        msg: () => msg
+                    }
                 });
+
+            } else {
+
+                debugger;
+
+                let that = this;
+
+                this.$uibModal.open({
+                    templateUrl: '/ngApp/views/registered/taskAddDialog.html',
+                    controller: 'DialogAddTaskController',
+                    controllerAs: 'modal',
+                    resolve: {
+                        _project: () => obj
+                    },
+                    size: 'lg'
+                })
+                    .result
+                    .then(function () {
+                        that.$state.reload();
+                    });
+            }
         }
 
+        public modalEditTask(projectName: string, obj: _Task) {
+
+            debugger;
+
+            if (!this.accountService.getClaim('IsAdmin') && this.accountService.getUserName() != this.project.manager) {
+
+                debugger;
+
+                let msg = "You cannot add task to this project. You are not the Project Manager!";
+
+                this.$uibModal.open({
+                    templateUrl: '/ngApp/views/registered/alertDialog.html',
+                    controller: 'DialogAlertController',
+                    controllerAs: 'modal',
+                    size: 'sm',
+                    resolve: {
+                        msg: () => msg
+                    }
+                });
+
+            } else {
+
+                let that = this;
+
+                debugger;
+
+                this.$uibModal.open({
+                    templateUrl: '/ngApp/views/registered/taskEditDialog.html',
+                    controller: 'DialogEditTaskController',
+                    controllerAs: 'modal',
+                    resolve: {
+                        projectName: () => projectName,
+                        task: () => obj
+                    },
+                    size: 'lg'
+                })
+                    .result
+                    .then(function () {
+                        that.$state.reload();
+                    });
+            }
+        }
+
+
+        public modalDeleteTask(id: number) {
+
+            debugger;
+
+            if (!this.accountService.getClaim('IsAdmin') && this.accountService.getUserName() != this.project.manager) {
+
+                debugger;
+
+                let msg = `You cannot delete this task. ${this.accountService.getUserName()} is not an admin, nor the project manager of this project!`;
+
+                this.$uibModal.open({
+                    templateUrl: '/ngApp/views/registered/alertDialog.html',
+                    controller: 'DialogAlertController',
+                    controllerAs: 'modal',
+                    size: 'sm',
+                    resolve: {
+                        msg: () => msg
+                    }
+                });
+
+            } else {
+
+                debugger;
+
+                this.$http.delete(`/api/task/` + id).then(() => {
+                    this.$state.reload();
+                })
+            }
+
+
+        }
 
         public modalAddComment(obj: _Task) {
             let that = this;
@@ -334,7 +460,7 @@ namespace PersonalProjectPTT.Controllers {
         }
 
 
-        constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService, private $stateParams: ng.ui.IStateParamsService, private $uibModal: angular.ui.bootstrap.IModalService) {
+        constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService, private $stateParams: ng.ui.IStateParamsService, private $uibModal: angular.ui.bootstrap.IModalService, private accountService: PersonalProjectPTT.Services.AccountService) {
 
             let projectId = $stateParams[`id`];
 
@@ -436,7 +562,8 @@ namespace PersonalProjectPTT.Controllers {
         }
     }
 
-    
+
+    angular.module('PersonalProjectPTT').controller('DialogAlertController', DialogAlertController);
 
     angular.module('PersonalProjectPTT').controller('DialogAddClientController', DialogAddClientController);
     angular.module('PersonalProjectPTT').controller('DialogEditClientController', DialogEditClientController);

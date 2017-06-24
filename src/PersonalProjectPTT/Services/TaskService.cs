@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using PersonalProjectPTT.Models;
 
+using Microsoft.EntityFrameworkCore;
+
 
 namespace PersonalProjectPTT.Services
 {
@@ -44,12 +46,19 @@ namespace PersonalProjectPTT.Services
         public void DeleteTask(int id)
         {
             ATask toDelete = GetTask(id);
+
+            foreach (Comment c in toDelete.Comments)
+            {
+                _repo.Delete<Comment>(c);
+            }
+            
             _repo.Delete(toDelete);
         }
 
         public ATask GetTask(int id)
         {
             ATask task = (from t in _repo.Query<ATask>()
+                          .Include(c=>c.Comments)
                                where t.Id == id
                                select t
                           ).FirstOrDefault();
