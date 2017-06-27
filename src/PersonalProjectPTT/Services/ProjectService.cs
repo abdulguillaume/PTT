@@ -27,7 +27,7 @@ namespace PersonalProjectPTT.Services
 
         public void AddProject(Project project)
         {
-            ClientService cs = new ClientService(_repo);
+            ClientService cs = new ClientService(_repo, this);
 
             Client client = null;
 
@@ -67,6 +67,17 @@ namespace PersonalProjectPTT.Services
                           select p
                           ).FirstOrDefault();
             return project;
+        }
+
+        public List<Project> GetProjectsByClientName(string client)
+        {
+            List<Project> projects = (from p in _repo.Query<Project>()
+                               .Include(c => c.Customer)
+                               where p.Customer.Name == client
+                               select p
+                         ).ToList();
+
+            return projects;
         }
 
         public void UpdateProject(Project project)

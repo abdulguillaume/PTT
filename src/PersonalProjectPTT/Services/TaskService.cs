@@ -47,7 +47,7 @@ namespace PersonalProjectPTT.Services
         {
             ATask toDelete = GetTask(id);
 
-            foreach (Comment c in toDelete.Comments)
+            foreach (Comment c in toDelete.Comments.ToList())
             {
                 _repo.Delete<Comment>(c);
             }

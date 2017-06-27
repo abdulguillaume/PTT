@@ -65,9 +65,18 @@ namespace PersonalProjectPTT.API
 
         [HttpDelete("{id}")]
         [Authorize(Policy = "AdminOnly")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
-            _client.DeleteClient(id);
+            try
+            {
+                _client.DeleteClient(id);
+                return Ok();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            
         }
     }
 }

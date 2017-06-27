@@ -13,5 +13,6 @@ namespace PersonalProjectPTT.Interfaces
         void DeleteProject(int id);
         Project GetProject(int id);
         void UpdateProject(Project project);
+        List<Project> GetProjectsByClientName(string client);
     }
 }

@@ -1,6 +1,6 @@
 namespace PersonalProjectPTT {
 
-    angular.module('PersonalProjectPTT', ['ui.router', 'ngResource', 'ui.bootstrap', 'ngMaterial', 'ngMessages']).config((
+    angular.module('PersonalProjectPTT', ['ui.router', 'ui.date', 'ngResource', 'ui.bootstrap', 'ngMaterial', 'ngMessages']).config((
         $stateProvider: ng.ui.IStateProvider,
         $urlRouterProvider: ng.ui.IUrlRouterProvider,
         $locationProvider: ng.ILocationProvider
@@ -115,6 +115,11 @@ namespace PersonalProjectPTT {
     angular.module('PersonalProjectPTT').config(function ($httpProvider) {
         $httpProvider.interceptors.push('authInterceptor');
     });
+
+
+    angular.module('PersonalProjectPTT').controller( 'TestCtrl', ['$scope', ($scope) => function ($scope) {
+        $scope.testStr = 'A String';
+    }]);
 
     
 

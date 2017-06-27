@@ -11,10 +11,12 @@ namespace PersonalProjectPTT.Services
 
     {
         private IGenericRepository _repo;
+        private IProjectService _ps;
 
-        public ClientService(IGenericRepository repo)
+        public ClientService(IGenericRepository repo, IProjectService ps)
         {
             _repo = repo;
+            _ps = ps;
         }
 
         public void AddClient(Client client)
@@ -36,7 +38,13 @@ namespace PersonalProjectPTT.Services
         public void DeleteClient(int id)
         {
             Client toDelete = GetClient(id);
-            _repo.Delete(toDelete);
+
+            string client_name = toDelete.Name;
+
+            if (_ps.GetProjectsByClientName(client_name).Count == 0)
+                _repo.Delete(toDelete);
+            else
+                throw new Exception();
         }
 
         public Client GetClient(int id)

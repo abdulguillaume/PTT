@@ -21,35 +21,49 @@ namespace PersonalProjectPTT.Controllers {
         public message = "Hello from the about page!";
     }
 
+    function AlertFunc(uibModal, msg)
+    {
+        uibModal.open({
+            templateUrl: '/ngApp/views/registered/alertDialog.html',
+            controller: 'DialogAlertController',
+            controllerAs: 'modal',
+            size: 'sm',
+            resolve: {
+                msg: () => msg
+            }
+        });
+    }
+
     export class ClientListController {
         public message = `Below are registered clients.`;
         public clients;
 
         public deleteClient(id: number) {
 
-            debugger;
+            ;
 
             if (!this.accountService.getClaim('IsAdmin')) {
 
                 let msg = `Operation not allowed. ${this.accountService.getUserName()} is not an admin!`;
 
-                this.$uibModal.open({
-                    templateUrl: '/ngApp/views/registered/alertDialog.html',
-                    controller: 'DialogAlertController',
-                    controllerAs: 'modal',
-                    size: 'sm',
-                    resolve: {
-                        msg: () => msg
-                    }
-                });
+                AlertFunc(this.$uibModal, msg);
 
             } else {
 
-                debugger;
+                ;
 
-                this.$http.delete(`/api/client/` + id).then(() => {
+                this.$http.delete(`/api/client/` + id)
+                    .then(() => {
+
                     this.$state.reload();
-                })
+                    })
+                    .catch(err => {
+
+                        let msg = "Client has link to one or more projects.. cannot be deleted!";
+
+                        AlertFunc(this.$uibModal, msg);
+                       // console.log(err.data);
+                    });
             }
 
             
@@ -74,7 +88,7 @@ namespace PersonalProjectPTT.Controllers {
 
         public modalEditClient(obj: any) {
             let that = this;
-            debugger;
+
             this.$uibModal.open({
                 templateUrl: '/ngApp/views/registered/editClientDialog.html',
                 controller: 'DialogEditClientController',
@@ -107,7 +121,7 @@ namespace PersonalProjectPTT.Controllers {
 
         constructor(private msg:string, private $uibModalInstance: angular.ui.bootstrap.IModalServiceInstance) {
 
-            debugger;
+            ;
         }
     }
 
@@ -148,7 +162,7 @@ namespace PersonalProjectPTT.Controllers {
         }
 
         constructor(private clientToEdit: any, private $uibModalInstance: angular.ui.bootstrap.IModalServiceInstance, private $http: ng.IHttpService, private $state: ng.ui.IStateService, private accountService: PersonalProjectPTT.Services.AccountService) {
-            debugger;
+            ;
         }
     }
 
@@ -181,6 +195,15 @@ namespace PersonalProjectPTT.Controllers {
 
         public modalAddProject()
         {
+            
+            if (this.accountService.getUserName() == null) {
+
+                ;
+                this.$state.go('login');
+
+                return;
+            }
+
             let that = this;
 
             this.$uibModal.open({
@@ -196,13 +219,15 @@ namespace PersonalProjectPTT.Controllers {
         }
 
 
-        constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService, private $uibModal: angular.ui.bootstrap.IModalService) {
+        constructor(private $http: ng.IHttpService, private $state: ng.ui.IStateService, private $uibModal: angular.ui.bootstrap.IModalService, private accountService: PersonalProjectPTT.Services.AccountService) {
             $http.get(`/api/project`).then((response) => {
                 this.projects = response.data;
             });
 
+
         }
     }
+
 
     export class DialogAddProjectController {
 
@@ -223,12 +248,12 @@ namespace PersonalProjectPTT.Controllers {
 
             this.projectToAdd.status = "created";
 
-            debugger;
+            ;
 
-            this.$http.post(`/api/project`, this.projectToAdd).then((response) => {
-
-                this.$uibModalInstance.close();
-            });
+            this.$http.post(`/api/project`, this.projectToAdd)
+                .then((response) => {
+                    this.$uibModalInstance.close();
+                })
 
         }
 
@@ -280,23 +305,12 @@ namespace PersonalProjectPTT.Controllers {
 
         public modalEditProject(obj: any)
         {
-            debugger;
 
             if (this.accountService.getUserName() != this.project.manager) {
 
-                debugger;
-
                 let msg = "You cannot modify this project. You are not the Project Manager!";
 
-                this.$uibModal.open({
-                    templateUrl: '/ngApp/views/registered/alertDialog.html',
-                    controller: 'DialogAlertController',
-                    controllerAs: 'modal',
-                    size: 'sm',
-                    resolve: {
-                        msg: () => msg
-                    }
-                });
+                AlertFunc(this.$uibModal, msg);
 
             } else {
 
@@ -322,28 +336,17 @@ namespace PersonalProjectPTT.Controllers {
         public modalAddTask(obj: _Project)
         {
 
-            debugger;
+            ;
 
             if (!this.accountService.getClaim('IsAdmin') && this.accountService.getUserName() != this.project.manager) {
 
-
-                debugger;
-
                 let msg = "You cannot add task to this project. You are not the Project Manager!";
 
-                this.$uibModal.open({
-                    templateUrl: '/ngApp/views/registered/alertDialog.html',
-                    controller: 'DialogAlertController',
-                    controllerAs: 'modal',
-                    size: 'sm',
-                    resolve: {
-                        msg: () => msg
-                    }
-                });
+                AlertFunc(this.$uibModal, msg);
 
             } else {
 
-                debugger;
+                ;
 
                 let that = this;
 
@@ -365,29 +368,21 @@ namespace PersonalProjectPTT.Controllers {
 
         public modalEditTask(projectName: string, obj: _Task) {
 
-            debugger;
+            ;
 
             if (!this.accountService.getClaim('IsAdmin') && this.accountService.getUserName() != this.project.manager) {
 
-                debugger;
+                ;
 
                 let msg = "You cannot add task to this project. You are not the Project Manager!";
 
-                this.$uibModal.open({
-                    templateUrl: '/ngApp/views/registered/alertDialog.html',
-                    controller: 'DialogAlertController',
-                    controllerAs: 'modal',
-                    size: 'sm',
-                    resolve: {
-                        msg: () => msg
-                    }
-                });
+                AlertFunc(this.$uibModal, msg);
 
             } else {
 
                 let that = this;
 
-                debugger;
+                ;
 
                 this.$uibModal.open({
                     templateUrl: '/ngApp/views/registered/taskEditDialog.html',
@@ -409,27 +404,15 @@ namespace PersonalProjectPTT.Controllers {
 
         public modalDeleteTask(id: number) {
 
-            debugger;
+            ;
 
             if (!this.accountService.getClaim('IsAdmin') && this.accountService.getUserName() != this.project.manager) {
 
-                debugger;
-
                 let msg = `You cannot delete this task. ${this.accountService.getUserName()} is not an admin, nor the project manager of this project!`;
 
-                this.$uibModal.open({
-                    templateUrl: '/ngApp/views/registered/alertDialog.html',
-                    controller: 'DialogAlertController',
-                    controllerAs: 'modal',
-                    size: 'sm',
-                    resolve: {
-                        msg: () => msg
-                    }
-                });
+                AlertFunc(this.$uibModal, msg);
 
             } else {
-
-                debugger;
 
                 this.$http.delete(`/api/task/` + id).then(() => {
                     this.$state.reload();
@@ -441,8 +424,6 @@ namespace PersonalProjectPTT.Controllers {
 
         public modalAddComment(obj: _Task) {
             let that = this;
-
-            debugger;
 
             this.$uibModal.open({
                 templateUrl: '/ngApp/views/registered/commentDialog.html',
@@ -481,8 +462,6 @@ namespace PersonalProjectPTT.Controllers {
 
         public ok() {
 
-            debugger;
-
             this.task.status = "created";
 
             this.$http.post(`/api/task`, { projectId: this._project.id, task: this.task }).then((response) => {
@@ -508,8 +487,6 @@ namespace PersonalProjectPTT.Controllers {
         public statuses = ["ongoing", "completed", "pending", "cancelled"];
 
         public ok() {
-
-            debugger;
 
             this.$http.post(`/api/task`, { projectId: 0, task: this.task }).then((response) => {
                 this.$uibModalInstance.close();
@@ -548,15 +525,11 @@ namespace PersonalProjectPTT.Controllers {
 
                 this.commentsStr = '';
 
-
-                debugger;
-
                 for (let c of this.commentsJson)
                 {
                     this.commentsStr = this.commentsStr + 'Text: ' + c.text + ', author: ' + c.author + ', Date: ' + c.createDate + '\n-----\n';
                 }
 
-                debugger;
             });
 
         }

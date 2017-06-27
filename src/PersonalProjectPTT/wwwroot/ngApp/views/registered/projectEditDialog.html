@@ -1,5 +1,5 @@
 ﻿<div class="modal-header">
-    <h3 style="margin-bottom: 25px; text-align: center;">Project Form (Add)</h3>
+    <h3 style="margin-bottom: 25px; text-align: center;">Project Form (Edit)</h3>
 </div>
 
 
@@ -57,16 +57,12 @@
 
         <div class="form-group">
             <label>Start date:</label>
-            <input type="text" class="form-control datepicker" id="startDate" name="startDate" placeholder="Start End -> MM/dd/yyyy"
-                   ng-model="modal.projectToEdit.startDate"
-                   required>
+            <input type="text" class="form-control" id="startDate" name="startDate" placeholder="Start Date"  ui-date ng-model="modal.projectToEdit.startDate" required>
         </div>
 
         <div class="form-group">
             <label>End date:</label>
-            <input type="text" class="form-control datepicker" id="endDate" name="endDate" placeholder="End Date -> MM/dd/yyyy"
-                   ng-model="modal.projectToEdit.endDate"
-                   required>
+            <input type="text" class="form-control" id="endDate" name="endDate" placeholder="End Date" ui-date ng-model="modal.projectToEdit.endDate" required>
 
         </div>
 

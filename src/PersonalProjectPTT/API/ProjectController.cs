@@ -22,9 +22,9 @@ namespace PersonalProjectPTT.API
         {
             _project = project;
         }
+
         // GET: api/Project
         [HttpGet]
-
         public List<Project> Get()
         {
             return _project.AllProjects();
